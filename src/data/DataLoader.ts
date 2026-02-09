@@ -3,7 +3,7 @@ import type { LegoSet } from "../models/LegoSet";
 const themesMap = new Map<number, string>();
 
 async function loadThemes(): Promise<void> {
-    const response = await fetch('/themes.csv');
+    const response = await fetch('public/themes.csv');
     const text = await response.text();
     const lines = text.split('\n');
 
@@ -39,7 +39,7 @@ function convertCSVLineToLegoSet(line: string): LegoSet | null {
 export async function loadAllSets(): Promise<LegoSet[]> {
     await loadThemes();
 
-    const response = await fetch('/sets.csv');
+    const response = await fetch('public/sets.csv');
     const text = await response.text();
     const lines = text.split('\n');
     const sets: LegoSet[] = [];
