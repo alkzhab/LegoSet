@@ -2,19 +2,34 @@ import type { LegoSet } from "../models/LegoSet";
 
 const themesMap = new Map<number, string>();
 
-async function loadThemes(): Promise<void> {
-    const response = await fetch('public/themes.csv');
-    const text = await response.text();
-    const lines = text.split('\n');
+const getPath = (filename: string) => {
+    const base = import.meta.env.BASE_URL;
 
-    for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line) {
-            const parts = line.split(',');
-            const id = parseInt(parts[0]);
-            const name = parts[1];
-            themesMap.set(id, name);
+    return base.endsWith('/') ? `${base}${filename}` : `${base}/${filename}`;
+};
+
+async function loadThemes(): Promise<void> {
+    try {
+        const response = await fetch(getPath('themes.csv'));
+        
+        if (!response.ok) throw new Error(`Erreur chargement themes: ${response.status}`);
+        
+        const text = await response.text();
+
+        if (text.trim().startsWith('<')) throw new Error("Le fichier themes.csv est invalide (HTML reçu)");
+
+        const lines = text.split('\n');
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (line) {
+                const parts = line.split(',');
+                const id = parseInt(parts[0]);
+                const name = parts[1];
+                themesMap.set(id, name);
+            }
         }
+    } catch (e) {
+        console.error("Erreur dans loadThemes:", e);
     }
 }
 
@@ -39,19 +54,29 @@ function convertCSVLineToLegoSet(line: string): LegoSet | null {
 export async function loadAllSets(): Promise<LegoSet[]> {
     await loadThemes();
 
-    const response = await fetch('public/sets.csv');
-    const text = await response.text();
-    const lines = text.split('\n');
-    const sets: LegoSet[] = [];
+    try {
+        const response = await fetch(getPath('sets.csv'));
+        
+        if (!response.ok) throw new Error(`Erreur chargement sets: ${response.status}`);
+        
+        const text = await response.text();
 
-    for (let i = 1; i < lines.length; i++) {
-        if (lines[i].trim() !== '') {
-            const set = convertCSVLineToLegoSet(lines[i]);
-            if (set) {
-                sets.push(set);
+        if (text.trim().startsWith('<')) throw new Error("Le fichier sets.csv est invalide (HTML reçu)");
+
+        const lines = text.split('\n');
+        const sets: LegoSet[] = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            if (lines[i].trim() !== '') {
+                const set = convertCSVLineToLegoSet(lines[i]);
+                if (set) {
+                    sets.push(set);
+                }
             }
         }
+        return sets;
+    } catch (e) {
+        console.error("Erreur dans loadAllSets:", e);
+        return [];
     }
-
-    return sets;
 }
