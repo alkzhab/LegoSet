@@ -1,0 +1,110 @@
+.card-wrapper {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    display: flex; flex-direction: column;
+}
+
+.card-wrapper:hover {
+    transform: translateY(-6px);
+    background: var(--bg-card-hover);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 0 20px rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.img-area {
+    height: 220px;
+    background: radial-gradient(circle at center, #334155 0%, #1e293b 100%);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 20px; 
+    cursor: zoom-in; 
+    overflow: hidden;
+}
+
+.set-img {
+    max-width: 90%; 
+    max-height: 90%; 
+    object-fit: contain;
+    transition: transform 0.5s ease; 
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+}
+
+.card-wrapper:hover .set-img { 
+    transform: scale(1.12) rotate(-2deg); 
+}
+
+.info-area { 
+    padding: 20px; 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.set-title {
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    color: var(--text-main);
+    text-decoration: none; 
+    margin-bottom: 4px; 
+    display: block; 
+    line-height: 1.4;
+}
+
+.set-title:hover { 
+    color: var(--primary); 
+}
+
+.set-meta { 
+    font-size: 0.85rem; 
+    color: var(--text-muted); 
+    margin-bottom: 12px; 
+}
+
+.badges { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: auto; 
+    padding-top: 16px; 
+}
+
+.badge {
+    font-size: 0.75rem; 
+    padding: 4px 10px; 
+    border-radius: 6px; 
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05); 
+    color: var(--text-muted);
+}
+
+.badge.accent {
+    color: var(--primary); 
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.action-btn {
+    width: 100%; 
+    margin-top: 16px; 
+    padding: 10px; 
+    border: none;
+    background: var(--text-main); 
+    color: var(--bg-main); 
+    font-weight: 700;
+    border-radius: var(--radius-sm); 
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background: white; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}

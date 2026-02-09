@@ -1,0 +1,91 @@
+.sticky-wrapper {
+    position: sticky;
+    top: 32px;
+    z-index: 50;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-glass-panel {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 12px;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s ease;
+}
+
+.search-glass-panel:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--primary-glow);
+}
+
+.input-group { 
+    position: relative; 
+    width: 90%; 
+}
+
+.search-icon {
+    position: absolute; 
+    left: 16px; 
+    top: 50%; 
+    transform: translateY(-50%);
+    color: var(--text-muted); 
+    font-size: 1.1rem; 
+    pointer-events: none;
+}
+
+.main-input {
+    width: 100%; 
+    background: rgba(0, 0, 0, 0.2); 
+    border: none;
+    color: var(--text-main); 
+    padding: 14px 16px 14px 48px;
+    border-radius: 16px; 
+    font-size: 1rem; 
+    outline: none; 
+    transition: background 0.2s;
+}
+
+.main-input:focus { 
+    background: rgba(0, 0, 0, 0.4); 
+}
+
+.filters-row { 
+    display: flex; 
+    gap: 8px; 
+    padding: 0 4px; 
+    flex-wrap: wrap; 
+}
+
+.filter-chip {
+    background: transparent; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted); 
+    padding: 6px 14px; 
+    border-radius: 20px;
+    font-size: 0.85rem; 
+    font-weight: 500;
+}
+
+.filter-chip.active {
+    background: var(--primary); 
+    border-color: var(--primary); 
+    color: white;
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.results-count {
+    margin-left: auto; 
+    font-size: 0.8rem; 
+    color: var(--text-muted); 
+    align-self: center;
+}
